@@ -6,7 +6,7 @@ const SPEED = 0.005;
 
 export default class Player extends Sprite {
   constructor(can, con, posX, posY) {
-    super(can, con, posX, posY, 0, DIM_X, DIM_Y);
+    super(can, con, posX, posY, 0, DIM_X, DIM_Y, null);
   }
 
   draw() {
@@ -24,4 +24,4 @@ export default class Player extends Sprite {
     this.pos.x += direction * SPEED;
   }
 }
-2
+2;
