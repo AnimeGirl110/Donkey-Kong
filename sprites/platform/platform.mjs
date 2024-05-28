@@ -32,4 +32,16 @@ export default class Platform {
   draw() {
     for (let piece of this.pieces) piece.draw();
   }
+
+  static initialize() {
+    return new Promise((resolve, reject) => {
+      PlatformPiece.initialize()
+        .then((message) => {
+          resolve(message);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
 }

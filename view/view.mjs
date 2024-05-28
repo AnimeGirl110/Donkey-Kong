@@ -12,8 +12,19 @@ bgCanvas.style.position = fgCanvas.style.position = "absolute";
 document.body.appendChild(bgCanvas);
 document.body.appendChild(fgCanvas);
 
-function draw() {
+function initialize() {
+onresize = resize;
+resize();
+}
+
+function drawBg() {
+  bgContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
   for (let platform of model.platforms) platform.draw();
+}
+
+function drawFg() {
+  fgContext.clearRect(0, 0, fgCanvas.width, fgCanvas.height);
+  for (let barrel of model.barrels) barrel.draw();
 }
 
 function resize() {
@@ -29,14 +40,13 @@ function resize() {
     (innerWidth - bgCanvas.width) / 2 + "px";
   bgCanvas.style.top = fgCanvas.style.top =
     (innerHeight - bgCanvas.height) / 2 + "px";
-  draw();
+  drawBg();
 }
 
 function run() {
   //after all modules are loaded
   //TODO: replace with animation loop
-  onresize = resize;
-  resize();
+  drawFg();
 }
 
-export default { ASPECT_RATIO, bgCanvas, fgCanvas, bgContext, fgContext, run };
+export default { initialize, ASPECT_RATIO, bgCanvas, fgCanvas, bgContext, fgContext, run };

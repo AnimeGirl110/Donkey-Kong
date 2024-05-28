@@ -13,6 +13,7 @@ export default class Sprite {
       x: dimX,
       y: dimY,
     };
+
   }
 
   draw() {
