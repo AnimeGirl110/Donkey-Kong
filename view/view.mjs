@@ -34,7 +34,7 @@ function resize() {
     bgCanvas.height = fgCanvas.height = innerWidth / ASPECT_RATIO;
   } else {
     bgCanvas.height = fgCanvas.height = innerHeight;
-    bgCanvas.width = fgCanvas.height = innerHeight * ASPECT_RATIO;
+    bgCanvas.width = fgCanvas.width = innerHeight * ASPECT_RATIO;
   }
   bgCanvas.style.left = fgCanvas.style.left =
     (innerWidth - bgCanvas.width) / 2 + "px";

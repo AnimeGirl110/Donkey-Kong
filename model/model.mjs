@@ -2,6 +2,15 @@ import Barrel from "../sprites/barrel.mjs";
 import Platform from "../sprites/platform/platform.mjs";
 import { ASPECT_RATIO } from "../view/view.mjs";
 
+export const PLATFORMS = [
+  { x1: 0.1, y1: 0.1 / ASPECT_RATIO, x2: 0.8, y2: 0.1 / ASPECT_RATIO },
+  { x1: 0.9, y1: 0.22 / ASPECT_RATIO, x2: 0.3, y2: 0.3 / ASPECT_RATIO },
+  { x1: 0.1, y1: 0.4 / ASPECT_RATIO, x2: 0.77, y2: 0.45 / ASPECT_RATIO },
+  { x1: 0.9, y1: 0.55 / ASPECT_RATIO, x2: 0.2, y2: 0.6 / ASPECT_RATIO },
+  { x1: 0.1, y1: 0.72 / ASPECT_RATIO, x2: 0.75, y2: 0.77 / ASPECT_RATIO },
+  { x1: 0.9, y1: 0.9 / ASPECT_RATIO, x2: 0.1, y2: 0.9 / ASPECT_RATIO },
+];
+
 const platforms = [];
 const barrels = [];
 
@@ -9,24 +18,9 @@ export function initialize() {
   return new Promise((resolve, reject) => {
     Platform.initialize()
       .then(() => {
-        platforms.push(
-          new Platform(0.3, 0.32 / ASPECT_RATIO, 0.9, 0.3 / ASPECT_RATIO)
-        );
-        platforms.push(
-          new Platform(0.1, 0.1 / ASPECT_RATIO, 0.9, 0.1 / ASPECT_RATIO)
-        );
-        platforms.push(
-          new Platform(0.1, 0.4 / ASPECT_RATIO, 0.6, 0.45 / ASPECT_RATIO)
-        );
-        platforms.push(
-          new Platform(0.2, 0.55 / ASPECT_RATIO, 0.9, 0.5 / ASPECT_RATIO)
-        );
-        platforms.push(
-          new Platform(0.1, 0.65 / ASPECT_RATIO, 0.75, 0.75 / ASPECT_RATIO)
-        );
-        platforms.push(
-          new Platform(0.1, 0.9 / ASPECT_RATIO, 0.9, 0.9 / ASPECT_RATIO)
-        );
+        for (let p of PLATFORMS) {
+          platforms.push(new Platform(p.x1, p.y1, p.x2, p.y2));
+        }
       })
       .then(() => Barrel.initialize())
       .then(() => {
@@ -41,6 +35,9 @@ export function initialize() {
 
 export function run(timeChange) {
   //TODO
+  for (let barrel of barrels) {
+    barrel.run(timeChange);
+  }
 }
 
-export default { initialize, run, platforms, barrels };
+export default { initialize, run, platforms, barrels, PLATFORMS };

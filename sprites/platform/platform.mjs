@@ -1,10 +1,18 @@
 import PlatformPiece from "./platform-piece.mjs";
 
-const PIECE_LENGTH = 1 / 20;
+export const PIECE_LENGTH = 1 / 20;
 const GAP_FIX = PIECE_LENGTH / 10;
 
 export default class Platform {
   constructor(x1, y1, x2, y2) {
+    if (x1 > x2) {
+      const tempX = x1;
+      const tempY = y1;
+      x1 = x2;
+      y1 = y2;
+      x2 = tempX;
+      y2 = tempY;
+    }
     const cx = (x1 + x2) / 2;
     const cy = (y1 + y2) / 2;
     const dx = x2 - x1;
@@ -30,7 +38,10 @@ export default class Platform {
   }
 
   draw() {
-    for (let piece of this.pieces) piece.draw();
+    for (let piece of this.pieces) {
+      console.log(piece.pos.x, piece.pos.y);
+      piece.draw();
+    }
   }
 
   static initialize() {
