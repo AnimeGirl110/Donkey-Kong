@@ -1,5 +1,6 @@
 import Barrel from "../sprites/barrel.mjs";
 import Platform from "../sprites/platform/platform.mjs";
+import Player from "../sprites/player/player.mjs";
 import { ASPECT_RATIO } from "../view/view.mjs";
 
 export const PLATFORMS = [
@@ -11,20 +12,31 @@ export const PLATFORMS = [
   { x1: 0.9, y1: 0.9 / ASPECT_RATIO, x2: 0.1, y2: 0.9 / ASPECT_RATIO },
 ];
 
-const platforms = [];
-const barrels = [];
+export const sprites = {
+  platforms: [],
+  barrels: [],
+  player: undefined,
+};
 
 export function initialize() {
+  console.log("Initializing");
   return new Promise((resolve, reject) => {
     Platform.initialize()
       .then(() => {
         for (let p of PLATFORMS) {
-          platforms.push(new Platform(p.x1, p.y1, p.x2, p.y2));
+          sprites.platforms.push(new Platform(p.x1, p.y1, p.x2, p.y2));
         }
       })
       .then(() => Barrel.initialize())
       .then(() => {
-        barrels.push(new Barrel(0.5, 0.5));
+        sprites.barrels.push(new Barrel(0.5, 0.5));
+      })
+      .then(() => Player.initialize())
+      .then(() => {
+        sprites.player = new Player(0.5, 0.5);
+      })
+      .then(() => {
+        console.log("Ready to resolve");
         resolve();
       })
       .catch((error) => {
@@ -35,9 +47,10 @@ export function initialize() {
 
 export function run(timeChange) {
   //TODO
-  for (let barrel of barrels) {
+  for (let barrel of sprites.barrels) {
     barrel.run(timeChange);
   }
+  sprites.player.run(timeChange);
 }
 
-export default { initialize, run, platforms, barrels, PLATFORMS };
+export default { initialize, run, sprites, PLATFORMS };

@@ -7,24 +7,25 @@ const fgCanvas = document.createElement("canvas");
 const bgContext = bgCanvas.getContext("2d");
 const fgContext = fgCanvas.getContext("2d");
 
-bgCanvas.style.backgroundColor = "black";
+bgCanvas.style.backgroundColor = "antiquewhite";
 bgCanvas.style.position = fgCanvas.style.position = "absolute";
 document.body.appendChild(bgCanvas);
 document.body.appendChild(fgCanvas);
 
 function initialize() {
-onresize = resize;
-resize();
+  onresize = resize;
+  resize();
 }
 
 function drawBg() {
   bgContext.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-  for (let platform of model.platforms) platform.draw();
+  for (let platform of model.sprites.platforms) platform.draw();
 }
 
 function drawFg() {
   fgContext.clearRect(0, 0, fgCanvas.width, fgCanvas.height);
-  for (let barrel of model.barrels) barrel.draw();
+  for (let barrel of model.sprites.barrels) barrel.draw();
+  model.sprites.player.draw();
 }
 
 function resize() {
@@ -49,4 +50,12 @@ function run() {
   drawFg();
 }
 
-export default { initialize, ASPECT_RATIO, bgCanvas, fgCanvas, bgContext, fgContext, run };
+export default {
+  initialize,
+  ASPECT_RATIO,
+  bgCanvas,
+  fgCanvas,
+  bgContext,
+  fgContext,
+  run,
+};

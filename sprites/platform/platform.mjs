@@ -39,7 +39,6 @@ export default class Platform {
 
   draw() {
     for (let piece of this.pieces) {
-      console.log(piece.pos.x, piece.pos.y);
       piece.draw();
     }
   }
