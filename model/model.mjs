@@ -33,7 +33,10 @@ export function initialize() {
       })
       .then(() => Player.initialize())
       .then(() => {
-        sprites.player = new Player(0.5, 0.5);
+        sprites.player = new Player(
+          PLATFORMS[PLATFORMS.length - 1].x2,
+          PLATFORMS[PLATFORMS.length - 1].y2
+        );
       })
       .then(() => {
         console.log("Ready to resolve");
